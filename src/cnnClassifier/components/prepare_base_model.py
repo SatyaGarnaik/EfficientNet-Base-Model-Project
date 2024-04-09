@@ -31,14 +31,15 @@ class PrepareBaseModel:
 
         top_dropout_rate = 0.5
         num_classes=128
-        x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
         x = tf.keras.layers.Dense(num_classes, activation="ReLU")(x)
+        x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
 
         num_classes1=64
-        x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout1")(x)
         x = tf.keras.layers.Dense(num_classes1, activation="ReLU")(x)
+        x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout1")(x)
 
-        prediction = tf.keras.layers.Dense(units=classes, activation="softmax")(x)
+        flatten_in = tf.keras.layers.Flatten()(x)
+        prediction = tf.keras.layers.Dense(units=classes, activation="softmax")(flatten_in)
 
         full_model = tf.keras.models.Model(
                 inputs=model.input,
