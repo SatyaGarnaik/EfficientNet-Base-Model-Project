@@ -5,6 +5,7 @@ import tensorflow as tf
 import time
 from pathlib import Path
 from cnnClassifier.entity.config_entity import ( TrainingConfig)
+SEED=1
 
 
 
@@ -39,6 +40,7 @@ class Training:
             directory=self.config.training_data,
             subset="validation",
             shuffle=False,
+            seed=SEED,
             **dataflow_kwargs
         )
 
@@ -59,6 +61,7 @@ class Training:
             directory=self.config.training_data,
             subset="training",
             shuffle=True,
+            seed=SEED,
             **dataflow_kwargs
         )
 
@@ -79,7 +82,7 @@ class Training:
             epochs=self.config.params_epochs,
             steps_per_epoch=self.steps_per_epoch,
             validation_steps=self.validation_steps,
-            validation_data=self.valid_generator
+            validation_data=self.valid_generator,
         )
 
         self.save_model(
