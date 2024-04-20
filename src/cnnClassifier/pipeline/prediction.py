@@ -9,13 +9,13 @@ class PredictionPipeline:
     def __init__(self,filename):
         self.filename =filename
 
-
+    actual_labels = [1, 0, 2, 3, 4]
     
-    def predict(self):
+    def predict(self,actual_labels):
         ## load model
         
-        model = load_model(os.path.join("artifacts","training", "model.h5"))
-        #model = load_model(os.path.join("model", "model.h5"))
+        #model = load_model(os.path.join("artifacts","training", "model.h5"))
+        model = load_model(os.path.join("model", "model.h5"))
 
         imagename = self.filename
         test_image = image.load_img(imagename, target_size = (350,350))
