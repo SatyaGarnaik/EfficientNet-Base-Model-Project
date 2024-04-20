@@ -9,11 +9,11 @@ class PredictionPipeline:
     def __init__(self,filename):
         self.filename =filename
 
-    actual_labels = [1, 0, 2, 3, 4]
     
-    def predict(self,actual_labels):
+    
+    def predict(self):
         ## load model
-        
+        classes_dir = ["Covid-19","Adenocarcinoma", "Large cell carcinoma", "Normal", "Squamous cell carcinoma"]
         #model = load_model(os.path.join("artifacts","training", "model.h5"))
         model = load_model(os.path.join("model", "model.h5"))
 
@@ -22,11 +22,7 @@ class PredictionPipeline:
         test_image = image.img_to_array(test_image)/255
         test_image = np.array([test_image])
         result = np.argmax(model.predict(test_image))
-        print(result)
+        print("Predicted Label:", classes_dir[result])
+        return [{ "image" : classes_dir[result]}]
 
-        if result[0] == 1:
-            prediction = 'Normal'
-            return [{ "image" : prediction}]
-        else:
-            prediction = 'Adenocarcinoma Cancer'
-            return [{ "image" : prediction}]
+        
