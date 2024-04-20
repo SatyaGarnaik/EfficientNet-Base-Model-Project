@@ -17,8 +17,8 @@ class PredictionPipeline:
         #model = load_model(os.path.join("artifacts","training", "model.h5"))
         model = load_model(os.path.join("model", "model.h5"))
 
-        imagename = self.filename
-        test_image = image.load_img(imagename, target_size = (350,350))
+        imagenames = self.filename
+        test_image = image.load_img(imagenames, target_size = (350,350))
         test_image = image.img_to_array(test_image)/255
         test_image = np.array([test_image])
         result = np.argmax(model.predict(test_image))
